@@ -202,7 +202,6 @@
         <button class="btn btn-primary" type="submit">Create account</button>
       </form>
     </div>
-
     <div class="panel" id="listing-panel" style="display:none; margin-top:20px;">
       <h3>Create your listing</h3>
       <div id="listing-msg"></div>
@@ -224,8 +223,13 @@
           <textarea id="l-description"></textarea>
           <div class="hint" id="l-description-count">0 / 40 words</div>
         </div>
-        <div class="field"><label>Contact (WhatsApp number or link)</label><input type="text" id="l-contact" required></div>
-        <button class="btn btn-primary" type="submit">Create listing</button>
+   <div class="field"><label>Contact (WhatsApp number or link)</label><input type="text" id="l-contact" required></div>
+<div class="field">
+  <label>Plan</label>
+  <select id="l-plan" required><option>Loading plans…</option></select>
+  <div class="hint" id="l-plan-detail"></div>
+</div>
+<button class="btn btn-primary" type="submit">Create listing</button>      
       </form>
     </div>
 
@@ -437,16 +441,20 @@ descField.addEventListener("input", () => {
 
 // ---- Dynamic plans + payment details ----
 let loadedPlans = [];
+function fillPlanSelect(select) {
+  select.innerHTML = loadedPlans
+    .map((p) => `<option value="${p.id}">${p.name}${p.rate ? " — " + p.rate : ""}</option>`)
+    .join("");
+}
 async function loadPricing() {
   try {
     const res = await fetch(`${API_BASE}/pricing`);
     const data = await res.json();
     loadedPlans = data.plans || [];
-    const select = document.getElementById("p-plan");
-    select.innerHTML = loadedPlans
-      .map((p) => `<option value="${p.id}">${p.name}${p.rate ? " — " + p.rate : ""}</option>`)
-      .join("");
+    fillPlanSelect(document.getElementById("p-plan"));
+    fillPlanSelect(document.getElementById("l-plan"));
     updatePlanDetail();
+    updateListingPlanDetail();
     const methodsLower = (data.payment_methods || []).map((m) => (m || "").toLowerCase());
     const ecocash = methodsLower.includes("ecocash");
     const ecocashKey = Object.keys(data.payment_details || {}).find((k) => k.toLowerCase() === "ecocash");
@@ -461,6 +469,15 @@ async function loadPricing() {
     }
   } catch {
     document.getElementById("p-plan").innerHTML = `<option>Couldn't load plans</option>`;
+function updateListingPlanDetail() {
+  const select = document.getElementById("l-plan");
+  const plan = loadedPlans.find((p) => p.id === select.value);
+  const detail = document.getElementById("l-plan-detail");
+  if (plan) {
+    detail.textContent = `${plan.description || ""} (${plan.duration_days || "?"} days, ${plan.max_images || "0"} photo slot(s))`;
+  }
+}
+document.getElementById("l-plan").addEventListener("change", updateListingPlanDetail);    
   }
 }
 function updatePlanDetail() {
@@ -473,7 +490,6 @@ function updatePlanDetail() {
 }
 document.getElementById("p-plan").addEventListener("change", updatePlanDetail);
 loadPricing();
-
 document.getElementById("listing-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   setListingMsg("", "");
@@ -481,6 +497,7 @@ document.getElementById("listing-form").addEventListener("submit", async (e) => 
   const category = document.getElementById("l-category").value;
   const description = document.getElementById("l-description").value;
   const contact = document.getElementById("l-contact").value;
+  const plan = document.getElementById("l-plan").value;
 
   try {
     const res = await fetch(`${API_BASE}/listings`, {
@@ -489,20 +506,23 @@ document.getElementById("listing-form").addEventListener("submit", async (e) => 
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ business_name, category, description, contact }),
+      body: JSON.stringify({ business_name, category, description, contact, plan }),
     });
     const data = await res.json();
     if (!res.ok) return setListingMsg(data.error || "Couldn't create listing", "error");
 
     currentListingId = data.listing.id;
     document.getElementById("p-listing-id").value = currentListingId;
+    document.getElementById("p-plan").value = plan; // keep payment plan in sync with what they picked
+    updatePlanDetail();
     document.getElementById("listing-panel").style.display = "none";
     document.getElementById("payment-panel").style.display = "block";
+    document.getElementById("my-listings-panel").style.display = "block"; // show it now, not just after login
+    loadMyListings(); // pull the fresh listing so its upload row appears immediately
   } catch {
     setListingMsg("Couldn't reach the server — try again shortly.", "error");
   }
-});
-
+});  
 // ---- Submit payment ----
 function setPaymentMsg(text, type) {
   const el = document.getElementById("payment-msg");
@@ -554,14 +574,11 @@ async function loadMyListings() {
     el.innerHTML = `<p style="font-size:0.9rem; color:var(--clay);">Couldn't load your listings — try again shortly.</p>`;
   }
 }
-
 function renderMyListingCard(l) {
   const card = document.createElement("div");
   card.className = "my-listing-card";
   const images = Array.isArray(l.images) ? l.images : [];
-  const allowed = Number(l.images_allowed || 0);
-  const isActive = l.status === "active";
-
+  const allowed = Number(l.images_allowed || 0); 
   const thumbsHtml = images
     .map(
       (img) => `
@@ -576,17 +593,18 @@ function renderMyListingCard(l) {
     <span class="status-tag ${isActive ? "status-active" : "status-pending"}">${l.status}</span>
     <h4>${escapeHtml(l.business_name || "Untitled")}</h4>
     <div class="img-thumbs">${thumbsHtml}</div>
-    ${
-      isActive
-        ? images.length < allowed
-          ? `<div class="upload-row">
-               <input type="file" accept="image/*" id="file-${l.id}">
-               <button class="btn btn-outline" type="button" onclick="uploadListingImage('${l.id}')">Add photo (${images.length}/${allowed})</button>
-             </div>
-             <div class="result-msg" id="upload-msg-${l.id}" style="font-size:0.85rem; margin-top:6px;"></div>`
-          : `<p style="font-size:0.85rem; color:#666;">You've used all ${allowed} photo slot(s) on this plan.</p>`
-        : `<p style="font-size:0.85rem; color:#666;">Photos can be added once this listing is approved and active.</p>`
-    }
+   ${
+      allowed === 0
+        ? `<p style="font-size:0.85rem; color:#666;">No photo slots on this listing's plan.</p>`
+        : images.length < allowed
+        ? `<div class="upload-row">
+             <input type="file" accept="image/*" id="file-${l.id}">
+             <button class="btn btn-outline" type="button" onclick="uploadListingImage('${l.id}')">Add photo (${images.length}/${allowed})</button>
+           </div>
+           <div class="result-msg" id="upload-msg-${l.id}" style="font-size:0.85rem; margin-top:6px;"></div>
+           ${l.status !== "active" ? `<p style="font-size:0.8rem; color:#666; margin-top:4px;">Photos stay private until your listing is approved.</p>` : ""}`
+        : `<p style="font-size:0.85rem; color:#666;">You've used all ${allowed} photo slot(s) on this plan.</p>`
+    }  
   `;
   return card;
 }
