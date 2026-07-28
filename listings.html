@@ -608,36 +608,19 @@ async function uploadListingImage(listingId) {
     alert("Choose a photo first.");
     return;
   }
-  if (IMGBB_API_KEY === "PASTE_YOUR_IMGBB_KEY_HERE") {
-    alert("Image hosting isn't set up yet — add your ImgBB API key in the site code.");
-    return;
-  }
 
   try {
     const formData = new FormData();
     formData.append("image", file);
-    const uploadRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
-      method: "POST",
-      body: formData,
-    });
-    const uploadData = await uploadRes.json();
-    if (!uploadData.success) {
-      alert("ImgBB upload failed: " + (uploadData.error?.message || "unknown error"));
-      return;
-    }
-    const url = uploadData.data.url;
 
-    const res = await fetch(`${API_BASE}/listings/${listingId}/images`, {
+    const res = await fetch(`${API_BASE}/listings/${listingId}/upload-image`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ url }),
+      headers: { Authorization: `Bearer ${authToken}` },
+      body: formData,
     });
     const data = await res.json();
     if (!res.ok) {
-      alert("Save failed: " + (data.error || "unknown error"));
+      alert("Upload failed: " + (data.error || "unknown error"));
       return;
     }
     alert("Photo added! " + (data.remaining ?? 0) + " slot(s) remaining.");
