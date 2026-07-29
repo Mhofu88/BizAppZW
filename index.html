@@ -51,7 +51,22 @@
   nav .wrap{ display:flex; justify-content:space-between; align-items:center; }
   nav a{ color:var(--paper); text-decoration:none; font-family:'Space Grotesk', sans-serif; font-weight:700; }
   nav .browse{ font-size:0.9rem; opacity:0.8; }
-
+<div class="side-menu-overlay" id="sideMenuOverlay" onclick="closeSideMenu()"></div>
+<aside class="side-menu" id="sideMenu">
+  <div class="side-menu-head">
+    <span>Menu</span>
+    <button class="side-menu-close" onclick="closeSideMenu()" aria-label="Close menu">×</button>
+  </div>
+  <nav class="menu-links">
+    <a href="#packages" onclick="closeSideMenu()"><span class="menu-icon">🚀</span> App Development Packages</a>
+    <a href="#live-apps" onclick="closeSideMenu()"><span class="menu-icon">⚡</span> Live Apps We've Built</a>
+    <a href="listings.html#get-listed" onclick="closeSideMenu()"><span class="menu-icon">📝</span> Marketplace Registration</a>
+    <a href="listings.html" onclick="closeSideMenu()"><span class="menu-icon">🛍️</span> Browse / List a Business</a>
+  </nav>
+  <div class="side-menu-foot">
+    <a class="btn btn-whatsapp" href="https://wa.me/263000000000?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20an%20app%20for%20my%20business" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
+  </div>
+</aside>
   /* ---------- HERO ---------- */
   .hero{
     background:
