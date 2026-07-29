@@ -429,7 +429,16 @@
     </div>
   </div>
 </footer>
-
+<script>
+  function openSideMenu(){
+    document.getElementById('sideMenu').classList.add('open');
+    document.getElementById('sideMenuOverlay').classList.add('open');
+  }
+  function closeSideMenu(){
+    document.getElementById('sideMenu').classList.remove('open');
+    document.getElementById('sideMenuOverlay').classList.remove('open');
+  }
+</script>
 <script>
   // Pulls live Starter/Business/Pro pricing set in the BizApp ZW admin panel.
   fetch("https://chigalex1-backend.onrender.com/app-dev-pricing")
