@@ -241,6 +241,7 @@
     <div class="panel" id="payment-panel" style="display:none; margin-top:20px;">
       <h3>Activate your listing</h3>
       <p style="font-size:0.9rem; margin-bottom:10px;">Choose a package, send payment, then submit your reference below — your listing goes live once approved.</p>
+     <button class="btn btn-outline" type="button" onclick="claimFreeSlot()" style="margin-bottom:14px;">🎁 Try free for 2 days (first listing only)</button>
       <div class="field">
         <label>Plan</label>
         <select id="p-plan"><option>Loading plans…</option></select>
@@ -511,7 +512,21 @@ document.getElementById("listing-form").addEventListener("submit", async (e) => 
     setListingMsg("Couldn't reach the server — try again shortly.", "error");
   }
 });
-
+async function claimFreeSlot() {
+  setPaymentMsg("", "");
+  try {
+    const res = await fetch(`${API_BASE}/listings/${currentListingId}/claim-free`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    const data = await res.json();
+    if (!res.ok) return setPaymentMsg(data.error || "Couldn't activate free slot", "error");
+    setPaymentMsg(data.message, "success");
+    document.getElementById("payment-panel").style.display = "none";
+  } catch {
+    setPaymentMsg("Couldn't reach the server — try again shortly.", "error");
+  }
+  }
 // ---- Submit payment ----
 function setPaymentMsg(text, type) {
   const el = document.getElementById("payment-msg");
