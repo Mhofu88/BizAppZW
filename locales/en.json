@@ -1,0 +1,48 @@
+{
+  "app_name": "BizAppZW",
+  "english_full_detailed_training": "English ★ FULL DETAILED TRAINING",
+  "select_language": "Select Language",
+  "search": "Search",
+  "search_placeholder": "Search business, product, service...",
+  "listings": "Listings",
+  "build_app": "Build App",
+  "pi_university": "Pi University",
+  "pi_university_desc": "Free Pi Network Education - 7 Chapters V19",
+  "learn_pi_free": "Learn Pi Network FREE",
+  "build_business_app": "Need a Business App that accepts Pi?",
+  "build_on_bizappzw": "Build on BizAppZW",
+  "welcome": "Welcome to BizAppZW",
+  "hero_title": "Get a custom business app built fast",
+  "hero_desc": "List your products & services for customers to find and pay using EcoCash, Fiat and Crypto like Pi. With domain, management and Pi Ecosystem Apps.",
+  "fiat_ecocash_pi": "Fiat • EcoCash • Pi • GCV $314,159",
+  "chapters": [
+    {
+      "title": "CHAPTER 1 — REGISTRATION & START YOUR PI JOURNEY",
+      "summary": "Stanford PhDs 2019, 60M Pioneers 230 countries, minepi.com/chigalex1, code CHIGALEX1, real name as ID, lightning every 24h"
+    },
+    {
+      "title": "CHAPTER 2 — SECURITY CIRCLE & MINING TEAM",
+      "summary": "After 3 days, 3-5 trusted people 20% each =100% boost, referral 25% bonus, Base Rate × (SC+Referral+Lockup)"
+    },
+    {
+      "title": "CHAPTER 3 — PI WALLET & 24 WORDS - MOST IMPORTANT!",
+      "summary": "24 WORDS = BANK MASTER KEY! Pi Browser > Wallet > Generate, write on PAPER twice 2 safe places, NEVER screenshot/WhatsApp, Test Pi faucet 100, Harare story 2500 Pi stolen $787k"
+    },
+    {
+      "title": "CHAPTER 4 — KYC & MAINNET CHECKLIST",
+      "summary": "KYC FREE! Docs ZW ID green passport, SA ID book smart card, NG NIN. Bright room no hat glasses, 4 corners ID, 8 steps checklist"
+    },
+    {
+      "title": "CHAPTER 5 — GCV $314,159 - GLOBAL CONSENSUS VALUE",
+      "summary": "GCV not exchange price! Doris Yin community, Pi 3.14159×100k, Farmer 1000 Pi = $314M dream, MapOfPi chicken 0.00001 Pi, list shop never sell cheap"
+    },
+    {
+      "title": "CHAPTER 6 — EDUCATION & MISSION - YOUR ROLE",
+      "summary": "Learn→Practice→Teach 2→1M Pioneers, Doris Yin book, 3-5 years not get-rich-quick, Vision 2030 farmer sells maize for Pi"
+    },
+    {
+      "title": "CHAPTER 7 — PI SECURITY & SCAM PREVENTION",
+      "summary": "5 Golden Rules: never share 24 words QR, only official minepi.com Pi Browser wallet.pinet.com, don't sell before Mainnet, @PiCoreTeam, scams send 1 get 2 KYC $10 fake apps"
+    }
+  ]
+}
