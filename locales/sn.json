@@ -1,0 +1,48 @@
+{
+  "app_name": "BizAppZW",
+  "english_full_detailed_training": "Chirungu ★ KUDZIDZISA KWAKAZARA",
+  "select_language": "Sarudza Mutauro",
+  "search": "Tsvaga",
+  "search_placeholder": "Tsvaga bhizimisi, chigadzirwa...",
+  "listings": "Mabhizimisi",
+  "build_app": "Gadzira App",
+  "pi_university": "Chigalex1 Yunivhesiti",
+  "pi_university_desc": "Dzidzo ye Pi Network Yemahara - Zvitsauko 7",
+  "learn_pi_free": "Dzidza Pi Network MAHARA",
+  "build_business_app": "Unoda Bhizimisi App inogamuchira Pi?",
+  "build_on_bizappzw": "Gadzira pa BizAppZW",
+  "welcome": "Mauya ku BizAppZW",
+  "hero_title": "Gadzirirwa business app nekukurumidza",
+  "hero_desc": "Nyora zvigadzirwa & masevhisi ako kuti vatengi vawane uye vabhadhare ne EcoCash, Fiat ne Pi.",
+  "fiat_ecocash_pi": "Fiat • EcoCash • Pi • GCV $314,159",
+  "chapters": [
+    {
+      "title": "CHITSAUKO 1 — KUNYORERA",
+      "summary": "Pi Network yakagadzirwa nemaPhDs eStanford 2019. 60 Million Pioneers. MuAfrica mukana wehupfumi pasina mabhangi. minepi.com/chigalex1 kodhi CHIGALEX1 zita chairo sepaID mheni mazuva ese."
+    },
+    {
+      "title": "CHITSAUKO 2 — SECURITY CIRCLE",
+      "summary": "Mushure memazuva 3, vanhu 3-5 vaunovimba 20% mumwe =100% boost, referral 25% bhonasi."
+    },
+    {
+      "title": "CHITSAUKO 3 — PI WALLET & MAZWI 24",
+      "summary": "MAZWI 24 = KIYI YE BANK! Nyora paPEPA kaviri nzvimbo 2 dzakachengeteka. USAMBO chengeta screenshot!"
+    },
+    {
+      "title": "CHITSAUKO 4 — KYC",
+      "summary": "KYC MAHARA! Magwaro ID yegirini pasipoti, kamuri rakajeka pasina ngowani magirazi."
+    },
+    {
+      "title": "CHITSAUKO 5 — GCV $314,159",
+      "summary": "GCV hausi mutengo we exchange! Doris Yin, murimi 1000 Pi = $314M kurota, MapOfPi huku 0.00001 Pi."
+    },
+    {
+      "title": "CHITSAUKO 6 — DZIDZO & BASA",
+      "summary": "Dzidza→Dzidzira→Dzidzisa 2→1M Pioneers, chiratidzo 2030 murimi anotengesa chibage ne Pi."
+    },
+    {
+      "title": "CHITSAUKO 7 — KUCHENGETEKA",
+      "summary": "Mitemo 5 yeGoridhe: usambo govana mazwi 24 QR, maApp epamutemo chete, usatengese Mainnet isati yavhurwa."
+    }
+  ]
+}
